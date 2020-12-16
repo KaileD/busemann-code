@@ -147,7 +147,7 @@ def plot_graph(g,graphlayout=None,**kwargs):
         
     return ig.plot(g,layout = graphlayout,**kwargs)
 
-def vertex_weights(wtfun,N,lpp=True):
+def vertex_weights(wtfun,N,lpp=False):
     """
     generates vertex weights by making the outgoing edges from each vertex have the same weight
     there are N**2 vertices, and each has two outgoing edges, except for either i=N-1 or j=N-1, in which case we will have only one outgoing edge.
@@ -167,6 +167,7 @@ def vertex_weights(wtfun,N,lpp=True):
     if not lpp:
         # then its fpp; make the weights positive. 
         wt = [ x * (-1) for x in wt ]
+        # print("weights for FPP generated")
 
     return wt
 
@@ -299,7 +300,8 @@ def return_times(g,N,wtfun=np.random.exponential,scaled=False,samples=1):
         times = list(chain.from_iterable(times))
         # convert to a list of positive times, 
         # AND also divide by samples to make averaging easier
-        times = [ -1 * x / samples for x in times ]
+        times = [ 1 * x / samples for x in times ]
+        print(times)
         avgtimes  = avgtimes + times
 
     # divide by samples to get an average
